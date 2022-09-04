@@ -1,5 +1,10 @@
 enemyS = "";
 WellermanS = "";
+leftWristX = 0;
+leftWristY = 0;
+rightWristX = 0;
+rightWristY = 0;
+
 
 function preload() {
     enemyS = loadSound("EnemyS.mp3")
@@ -13,6 +18,22 @@ function setup() {
     video = createCapture(VIDEO);
     video.hide();
 
+    poseNet = ml5.poseNet(video, modalLoaded);
+    poseNet.on('pose', gotResults);
+}
+
+function gotResults(results) {
+    if (results.length > 0) {
+        console.log(results);
+
+        leftWristX = results[0].pose.leftWrist.x;
+        leftWristY = results[0].pose.leftWrist.y;
+        console.log("Left wrist x = " + leftWristX + ", Left wrist y = " + leftWristY);
+
+        rightWristX = results[0].pose.rightWrist.x;
+        rightWristY = results[0].pose.rightWrist.y;
+        console.log("Right wrist x = " + rightWristX + ", right wrist y = " + rightWristY);
+    }
 }
 
 function draw() {
