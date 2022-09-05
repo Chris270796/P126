@@ -22,6 +22,11 @@ function setup() {
     poseNet.on('pose', gotResults);
 }
 
+
+function modalLoaded() {
+    console.log("Posenet is initialized");
+}
+
 function gotResults(results) {
     if (results.length > 0) {
         console.log(results);
